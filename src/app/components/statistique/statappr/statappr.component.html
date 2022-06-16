@@ -1,0 +1,12 @@
+<div class="chart-wrapper col" >
+  <div> <input type="number" [(ngModel)]="year"/>
+    <button (click)="get()"><i class="fa fa-bar-chart" aria-hidden="true"></i></button></div>
+  <canvas baseChart
+          [datasets]="barChartData"
+          [labels]="barChartLabels"
+          [options]="barChartOptions"
+          [plugins]="barChartPlugins"
+          [legend]="barChartLegend"
+          [chartType]="barChartType">
+  </canvas>
+</div>

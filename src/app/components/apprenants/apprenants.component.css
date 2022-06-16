@@ -1,0 +1,7 @@
+.toptop{ display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+.toptop.input{
+  height: min-content;
+}

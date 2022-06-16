@@ -1,0 +1,124 @@
+
+  <div class="block mb-2">
+    <i class="fa fa-pencil-square " (click)="openup(mymodal)" style="position:relative;left:-0%;top: -10%; "  ></i>
+
+    <i class="fa fa-close " style="position:relative;left:90%;top: -10%;  " (click)="delete()" ></i>
+
+
+    <div class="card-body">
+
+      <div class="row">
+
+        <div>
+          <i class="fa fa-video-camera fa-3x">  </i>
+        </div>
+
+        <div class="d-flex justify-content-">
+          <h5 style="  font-weight: bolder;">
+            <span class="counter-value">{{rooma.name}} </span>
+          </h5>
+        </div>
+        <div >
+          <span class="  "><i class="fa fa-calendar" aria-hidden="true"> {{rooma.settings.scheduled_time| date: 'dd/MM/yyyy'}}</i></span>
+        </div>
+
+        <div  >
+          <span class="  "><i class="fa fa-clock-o" aria-hidden="true">{{rooma.settings.scheduled_time|date:'shortTime'}} </i></span>
+        </div>
+        <div  >
+          <span class="  "><b>Durée</b>: {{rooma.settings.duration}} min</span>
+        </div>
+        <div  >
+          <span class="  "><b>Formateur: {{formateur?.name}} <i class="fa fa-trash" (click)="desafecter(formateur._id,rooma.room_id)"  ></i>  </b></span>
+        </div>
+        <div  >
+          <span class="  "><b>Apprenants</b>   <button class="btn btn-secondary" (click)="opena()">consulter</button></span>
+        </div>
+        <div  >
+          <i class="fa fa-user fa-2x"  (click)="open()" ></i>  <i class="fas fa-graduation-cap fa-2x" (click)="openApp()" ></i>
+
+        </div>
+
+<!----------------------------------->
+        <ng-template #mymodal let-modal >
+          <div class="modal-header" style="width: 500px !important;">
+            <h4 class="modal-title" id="modal-basic-title1">Editer Visioconference</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <!--begin form-->
+          <div class="modal-body" style="width: 750px !important;" >
+            <div class="container">
+              <!-- Account page navigation-->
+              <div class="row">
+                <div class="col-lg-8" >
+                  <!-- Change password card-->
+                  <div class="card lg" >
+                    <div class="card-body" >
+                      <form (ngSubmit)="update(rooma.room_id)"  novalidate>
+                        <!-- Form Group (name)-->
+                        <div class="mb-3">
+
+                          <label class="small mb-1" for="name">
+                            Nom<span style="color: #e74c3c">*</span></label>
+                          <input class="form-control" id="name" type="text"  name="name"  [(ngModel)]="nomup" required>
+
+                        </div>
+                        <div class="mb-3">
+
+                          <label class="small mb-1" for="date">
+                            Reférence<span style="color: #e74c3c">*</span></label>
+                          <input class="form-control" id="date" type="date" placeholder="Entrer le date format GMT " name="date" [(ngModel)]="dateup"   required>
+
+                        </div>
+                        <div class="mb-3">
+
+                          <label class="small mb-1" for="heure">
+                            Reférence<span style="color: #e74c3c">*</span></label>
+                          <input class="form-control" id="heure" type="time" placeholder="Entrer l'heure' " name="heure" [(ngModel)]="heureup"   required>
+
+                        </div>
+                        <div class="mb-3">
+
+                          <label class="small mb-1" for="desc">
+                            description<span style="color: #e74c3c">*</span></label>
+                          <input class="form-control" id="desc" type="text" placeholder="Entrer la description" name="desc" [(ngModel)]="descup"   required>
+
+                        </div>
+                        <div class="mb-3">
+
+                          <label class="small mb-1" for="duration">
+                            Durée  <span style="color: #e74c3c">*</span></label>
+                          <input class="form-control" id="duration" type="number" placeholder="Entrer le duree par minute" name="duration" [(ngModel)]="durationup"  required>
+
+                        </div>
+                        <button class="btn btn-primary" type="submit" >Enregistrer</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--end form-->
+        </ng-template>
+<!----------------------------------->
+
+
+
+      </div>
+
+    </div>
+  </div>
+
+  <!----------------------------------------liste apprenant--------------------------------------->
+
+
+  <!--end liste apprenant-->
+
+
+
+
+
+

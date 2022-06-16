@@ -1,0 +1,175 @@
+
+<!-----------------------ajout ress------------->
+<ng-template #mymodal let-modal >
+  <div class="modal-header" >
+    <h4 class="modal-title" id="modal-basic-title1">Ajouter Ressource</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <!--begin form-->
+  <div class="modal-body" style="width: 750px !important;" >
+    <div class="container">
+      <!-- Account page navigation-->
+      <div class="row">
+        <div class="col-lg-8" >
+          <!-- Change password card-->
+          <div class="card lg" >
+            <div class="card-body" >
+              <form (ngSubmit)="onSubmit()"  novalidate>
+                <div class="mb-3">
+                  <label class="small mb-4" for="titre" >nom<span style="color: #e74c3c">*</span></label>
+                  <input class="form-control" id="titre" type="text" placeholder="entrer le titre" name="titre" [(ngModel)]="titre"   required>
+                </div>
+                <div class="mb-3">
+                  <label class="small mb-4" for="desc" >description</label>
+                  <input class="form-control" id="desc" type="text" placeholder="entrer le titre" name="desc" [(ngModel)]="desc"   required>
+                </div>
+                <div class="mb-3">
+
+                  <label class="small mb-1" for="logo">logo</label>
+                  <input class="form-control"  (change)="onImageUpload($event)" id="logo"  type="file"  placeholder="choissiser votre logo" name="logo"   >
+
+                </div>
+                <button class="btn btn-primary" type="submit" >Enregistrer</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  <!--end form-->
+
+</ng-template>
+<!-----------------------------------fin formulaire ajouter res---------------------------->
+
+<div class="">
+  <div class="mt-9 d-flex flex-row">
+    <div class="d-style btn btn-brc-tp border-2 bgc-white btn-outline-blue btn-h-outline-blue btn-a-outline-blue w-100 my-2 py-3 shadow-sm">
+      <!-- Basic Plan -->
+      <div class="row align-items-center">
+        <div class="col-12 col-md-3">
+          <h4 class="pt-3 text-170 text-600 text-primary-d1 letter-spacing" style="color: #0061f2">
+            Chapitre{{index}}
+          </h4>
+
+          <div class="text-secondary-d1 text-120">
+
+          </div>
+        </div>
+
+        <ul class="list-unstyled mb-0 col-12 col-md-3 text-dark-l1 text-90 text-left my-4 my-md-0">
+          <li>
+            <span style="color: darkorchid">
+               {{chapitre.name.toUpperCase()}}
+              </span>
+          </li>
+
+
+
+        </ul>
+
+        <div class="col-12 col-md-3 text-center">
+          <i class="fa fa-ellipsis-h " style="color: #0061f2" title="ressource" (click)="getres(chapitre._id)"></i>
+        </div>
+        <div class="col-12 col-md-3 text-center row">
+
+          <i class="fa fa-plus"   (click)="open(mymodal)" style="color: #5f5f5f;margin-top: 1%"></i>
+          <i class="fa fa-pencil-square" aria-hidden="true" style="color: #5f5f5f;margin-top: 4%" (click)="open(modal1)"></i>
+          <i class="fa fa-trash" aria-hidden="true" style="color: #5f5f5f;margin-top: 4%"  (click)=" delete(chapitre._id)" ></i>
+          <div>                <i  [ngClass]="chapitre.visible?'fa fa-eye': 'fa fa-eye-slash'" style="color: #5f5f5f;margin-top: 4%"  aria-hidden="true" (click)="updateValidation(chapitre._id)"></i>
+          </div>
+        </div>
+
+
+
+      </div>
+
+    </div>
+
+
+    </div>
+  <div *ngIf="verif" >
+    <p>{{chapitre.desc}}</p>
+
+    <ul class="list-group-item-action" *ngFor="let item of ress" [ngSwitch]="item.type">
+      <li class="list"*ngSwitchCase="'application/pdf' " (dblclick)="gopdf(item.fic)"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>   {{item.titre}}
+        <i class="fa fa-trash" aria-hidden="true" (click)="deleteRes(item._id)" ></i>
+      </li>
+      <li class="list"*ngSwitchCase="'video/mp4'" (dblclick)="govid(item.fic)"><i class="fa fa-file-video-o" aria-hidden="true"></i>   {{item.titre}}
+        <i class="fa fa-trash" aria-hidden="true" (click)="deleteRes(item._id)" ></i></li>
+      <li class="list" *ngSwitchDefault (dblclick)="goimg(item.fic)"><i class="fa fa-picture-o" aria-hidden="true"></i>   {{item.titre}}
+        <i class="fa fa-trash" aria-hidden="true" (click)="deleteRes(item._id)" ></i></li>
+
+      <i class="" aria-hidden="true"></i>
+      <i class="" aria-hidden="true"></i>
+    </ul>
+
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ng-template #modal1 let-modal >
+  <div class="modal-header" >
+    <h4 class="modal-title" id="modal-basic-title2">Editer chapitre</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <!--begin form-->
+  <div class="modal-body" >
+    <div class="container">
+      <!-- Account page navigation-->
+      <hr class="mt-0 mb-4">
+      <div class="row">
+        <div class="col-lg-8" >
+          <!-- Change password card-->
+          <div class="card lg" >
+            <div class="card-body" >
+              <form (ngSubmit)="updateCh(chapitre._id)"  novalidate>
+                <div class="mb-3">
+                  <label class="small mb-4" for="titre1" >nom<span style="color: #e74c3c">*</span></label>
+                  <input class="form-control" id="titre1" type="text" placeholder="entrer le nom du chapitre" name="titre" [(ngModel)]="titreup"   required>
+                </div>
+                <div class="mb-3">
+                  <label class="small mb-4" for="desc1" >description</label>
+                  <input class="form-control" id="desc1" type="text" placeholder="entrer la description" name="desc" [(ngModel)]="descup"   required>
+                </div>
+
+                <button class="btn btn-primary" type="submit" >Editer</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  <!--end form-->
+
+</ng-template>
+<!-----------------------------------fin formulaire ajouter res---------------------------->

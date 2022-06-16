@@ -1,0 +1,64 @@
+<div>
+<hr>
+nombre de visioConference
+
+<form>
+  <div class="row">
+    <div class="col">
+      <input type="date" name="db" [(ngModel)]="db" class="form-control" placeholder="Date debut">
+    </div>
+    <div class="col">
+      <input type="date" class="form-control" name="db" [(ngModel)]="df" placeholder="date fin">
+    </div>
+    <div class="col">
+      <button type="button" class="btn btn-primary" (click)="get()">compter</button>
+    </div>
+
+    <div class="col">
+      <input type="text" class="form-control" [(ngModel)]="nbr" name="nbr" disabled>
+    </div>
+  </div>
+</form>
+</div>
+<!---->
+<div>
+  <hr>
+  nombre de formation
+
+  <form>
+    <div class="row">
+      <div class="col">
+        <input type="date" name="dbf" [(ngModel)]="dbf" class="form-control" placeholder="Date debut">
+      </div>
+      <div class="col">
+        <input type="date" class="form-control" name="dbf" [(ngModel)]="dff" placeholder="date fin">
+      </div>
+      <div class="col">
+        <button type="button" class="btn btn-primary" (click)="getF()">compter</button>
+      </div>
+
+      <div class="col">
+        <input type="text" class="form-control" [(ngModel)]="nbrf" name="nbr" disabled>
+      </div>
+    </div>
+  </form>
+</div>
+<hr>
+<!---->
+<div class="chart-wrapper col ch">
+  <canvas baseChart
+          [datasets]="radarChartData"
+          [options]="radarChartOptions"
+          [labels]="radarChartLabels"
+          [chartType]="radarChartType">
+  </canvas>
+</div>
+  <div class="row">
+    <app-count-month class="col ch" ></app-count-month>
+    <app-countmonth-formation class="col ch" ></app-countmonth-formation>
+  </div>
+<div class="row">
+<app-statappr class="col ch"></app-statappr>
+<app-statform class="col ch"></app-statform>
+</div>
+<app-calendar></app-calendar>

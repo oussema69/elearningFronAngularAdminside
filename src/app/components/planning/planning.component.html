@@ -1,0 +1,265 @@
+<div class="row mb-3 host">
+
+
+  <div class="toptop">
+    <button type="button" style="width: 300px;" class=" swal2-input   " (click)="open(mymodal)" > <i class="fa fa-plus" aria-hidden="true" ></i>Creer</button>
+
+    <input type="text" name="Search" [(ngModel)] = "Search" class="swal2-input"  style="width: 280px " placeholder="rechercher">
+  </div>
+  <div class="row host">
+    <div *ngIf="allRoom?.length==0">
+      <img  src="../../../assets/nodata.png">
+      <h1 style="text-align:center">Aucun room</h1>
+    </div>
+<div class="col-lg-4 "  *ngFor="let rooma of allRoom|room:Search;">
+
+    <app-room  [rooma]="rooma" (deleteEvent)="delete(rooma.room_id)"
+    (openaEvent)="opena(list,rooma.room_id)"
+    (openEvent)="open(ajouterF)"
+    (openAppEvent)="openApp(ajouterApp,$event)"
+
+    >
+      <!--- liste des apprenant --->
+      <ng-template #list let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-titleaze">liste des participants</h4>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <!--begin form-->
+        <div class="modal-body" style="width: 750px !important;">
+          <div class="container">
+            <!-- Account page navigation-->
+            <div class="row">
+              <div class="col-lg-8" >
+                <input type="text" class="form-control" placeholder="Rechercher" name="Search" [(ngModel)]="SearchAppaff">
+                <div class="card lg" >
+                  <div class="card-body" >
+                    <h2 *ngIf="apprenant.length===0">aucun apprenants </h2>
+
+                    <div   >
+
+                      <div *ngFor="let f of apprenant|apprenants:SearchAppaff">
+                        <mat-card class="example-card card shadow-none border radius-15"*ngIf="f.isValid">
+
+                          <mat-card-title-group >
+
+                            <mat-card-title > <i>
+                              <img class="rounded-circle z-depth-2" alt="100x50" src="{{fileUrl+f.logo}}" width="15%"
+                                   data-holder-rendered="true"> {{f.email}}</i></mat-card-title><br>
+                            <br>
+                            <i class="fas fa-trash"  aria-hidden="true" style="color: #0061f2" aria-hidden="true" (click)="desafecter(f._id,rooma.room_id)" ></i>
+
+
+                          </mat-card-title-group>
+
+
+
+                        </mat-card>
+                      </div>
+                    </div>
+
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+        <!--end form-->
+
+      </ng-template>
+
+<ng-template #ajouterApp let-modal >
+  <div class="modal-header" >
+    <h4 class="modal-title" id="modal-basic-title1">Liste des apprenants</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body" style="width: 750px !important;">
+    <div class="container">
+      <!-- Account page navigation-->
+      <div class="input-group input-group-lg" style="width: 450px !important;">	<span class="input-group-text bg-transparent"><i class="fa fa-search"></i></span>
+        <input type="text" class="form-control" placeholder="Rechercher" name="Search" [(ngModel)]="SearchApp"></div><br>
+      <div class="row">
+        <div class="col-lg-8" >
+
+          <div class="card lg" >
+            <div class="card-body" >
+              <h2 *ngIf="allApp.length===0">aucun apprenants</h2>
+
+
+              <div   >
+
+                <div *ngFor="let app of allApp|apprenants:SearchApp">
+                  <mat-card class="example-card card shadow-none border radius-15"*ngIf="app.isValid">
+
+                    <mat-card-title-group >
+
+                      <mat-card-title > <i>
+                        <img class="rounded-circle z-depth-2" alt="100x50" src="{{fileUrl+app.logo}}" width="15%"
+                             data-holder-rendered="true"> {{app.email}}</i></mat-card-title><br>
+                      <br>
+                      <i class="fas fa-check-double"  aria-hidden="true" style="color: #0061f2" aria-hidden="true"  (click)="affecter(app._id,rooma.room_id)"  ></i>
+
+
+                    </mat-card-title-group>
+
+
+
+                  </mat-card>
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+</ng-template>
+  <!----------------------------------------liste formateur--------------------------------------->
+  <ng-template #ajouterF let-modal >
+    <div class="modal-header" >
+      <h4 class="modal-title" id="modal-basic-title6">Liste des formateurs</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="modal-body" style="width: 750px !important;">
+      <div class="container">
+        <!-- Account page navigation-->
+        <div class="input-group input-group-lg" style="width: 450px !important;">	<span class="input-group-text bg-transparent"><i class="fa fa-search"></i></span>
+          <input type="text" class="form-control" placeholder="Rechercher" name="Search" [(ngModel)]="SearchF"></div><br>
+        <div class="row">
+          <div class="col-lg-8" >
+
+            <div class="card lg" >
+              <div class="card-body" >
+                <h2 *ngIf="allF.length===0">Aucun formateur</h2>
+
+                <div   >
+
+                  <div *ngFor="let f of allF|formateur:SearchF">
+                    <mat-card class="example-card card shadow-none border radius-15"*ngIf="f.isValid">
+
+                      <mat-card-title-group >
+
+                        <mat-card-title > <i>
+                          <img class="rounded-circle z-depth-2" alt="100x50" src="{{fileUrl+f.logo}}" width="15%"
+                               data-holder-rendered="true"> {{f.email}}</i></mat-card-title><br>
+                        <br>
+                        <i class="fas fa-check-double"  aria-hidden="true" style="color: #0061f2" aria-hidden="true"  (click)="affecterF(f._id,rooma.room_id)"></i>
+
+
+                      </mat-card-title-group>
+
+
+
+                    </mat-card>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+  </ng-template>
+  <!--end liste formateur-->
+  </app-room>
+</div>
+  </div>
+
+  <!----------------------------------------formulaire ajouter room--------------------------------------->
+  <ng-template #mymodal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">creer une visioconference</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <!--begin form-->
+    <div class="modal-body" style="width: 750px !important;">
+      <div class="container">
+        <!-- Account page navigation-->
+        <div class="row">
+          <div class="col-lg-8" >
+            <!-- Change password card-->
+            <div class="card lg" >
+              <div class="card-body" >
+                <form [formGroup]="addRoom" (ngSubmit)="createRoom()"  novalidate>
+                  <!-- Form Group (name)-->
+                  <div class="mb-3">
+
+                    <label class="small mb-1" for="name">
+                      Nom<span style="color: #e74c3c">*</span></label>
+                    <input class="form-control" id="name" type="text" placeholder="Entrer le nom" name="name"  formControlName="nom" required>
+
+                  </div>
+                  <div class="mb-3">
+
+                    <label class="small mb-1" for="date">
+                      Reférence<span style="color: #e74c3c">*</span></label>
+                    <input class="form-control" id="date" type="date" placeholder="Entrer le date format GMT " name="date" formControlName="date"   required>
+
+                  </div>
+                  <div class="mb-3">
+
+                    <label class="small mb-1" for="heure">
+                      Reférence<span style="color: #e74c3c">*</span></label>
+                    <input class="form-control" id="heure" type="time" placeholder="Entrer l'heure' " name="heure" formControlName="heure"   required>
+
+                  </div>
+                  <div class="mb-3">
+
+                    <label class="small mb-1" for="desc">
+                      description<span style="color: #e74c3c">*</span></label>
+                    <input class="form-control" id="desc" type="text" placeholder="Entrer la description" name="desc" formControlName="desc"   required>
+
+                  </div>
+                  <div class="mb-3">
+
+                    <label class="small mb-1" for="duration">
+                      Durée  <span style="color: #e74c3c">*</span></label>
+                    <input class="form-control" id="duration" type="number" placeholder="Entrer le duree par minute" name="duration" formControlName="duration"  required>
+
+                  </div>
+                  <button class="btn btn-primary" type="submit" >Enregistrer</button>
+                </form>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+    <!--end form-->
+
+  </ng-template>
+
+</div>
+
+
+
+

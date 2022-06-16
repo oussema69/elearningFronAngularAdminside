@@ -1,0 +1,161 @@
+<p>nombre des formateurs: {{formateurs?.length}}</p>
+
+<div class="row mb-3 host">
+
+
+<div class="toptop">
+    <button type="button" style="width: 300px;" class=" swal2-input   " (click)="open(mymodal)" > <i class="fa fa-plus" aria-hidden="true" ></i>Creer</button>
+
+    <input type="text" name="Search" [(ngModel)]="Search" class="swal2-input"  style="width: 280px " placeholder="rechercher">
+  </div>
+  <div class="row host">
+
+    <div class="row host">
+      <div *ngIf="formateurs.length==0">
+        <img  src="../../../assets/nodata.png">
+        <h1 style="text-align:center">Aucun formateur</h1>
+      </div>
+    <div class="col-lg-4 "  *ngFor="let item of formateurs|formateur:Search;" (dblclick)="goto(item._id)">
+
+      <div class="block mb-2">
+
+        <div class="card-body">
+
+          <div class="row"> <div>
+            <i class="fas fa-user fa-3x"></i>
+          </div>
+
+          <div class="d-flex justify-content-">
+            <h5 style="  font-weight: bolder;">
+              <span class="counter-value"> {{item.name}} {{item.lastname}} </span>
+            </h5>
+          </div>
+            <div >
+              <span class="  "><i class="fa fa-envelope" aria-hidden="true"></i>{{item.email}}</span>
+            </div>
+
+            <div  >
+              <span class="  "><i class="fa fa-phone" aria-hidden="true"></i>{{item.tel}}</span>
+              </div>
+            <div  >
+              <span class="  ">Specialité: {{item.spec}}</span>
+            </div>
+
+            <div>                <i  [ngClass]="item.isValid?'fa fa-unlock': 'fa fa-lock'"   aria-hidden="true" (click)="updateValidation(item._id)"></i>
+            </div>
+
+
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!----------------------------------------formulaire--------------------------------------->
+
+
+      <ng-template #mymodal let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Creer Formateur</h4>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <!--begin form-->
+        <div class="modal-body" style="width: 750px !important;">
+          <div class="container">
+            <!-- Account page navigation-->
+            <div class="row">
+              <div class="col-lg-8" >
+                <!-- Change password card-->
+                <div class="card lg" >
+                  <div class="card-body" >
+                    <form [formGroup]="formaddF" (ngSubmit)="onSubmit()" novalidate>
+                      <!-- Form Group (name)-->
+                      <div class="mb-3">
+
+                        <label class="small mb-1" for="name">
+                          Nom<span style="color: #e74c3c">*</span></label>
+                        <input class="form-control" id="name" type="text" placeholder="Entrer le nom" name="name" formControlName="name"  required>
+                        <div *ngIf="getformaddF['name'].touched && getformaddF['lastname'].invalid" class="text-danger">
+                          <div  *ngIf="getformaddF['name'].errors">champ nom obligatoire</div>
+                        </div>
+                      </div>
+                      <!-- Form Group (lastname)-->
+                      <div class="mb-3">
+
+                        <label class="small mb-1" for="lastname">Prenom<span style="color: #e74c3c">*</span></label>
+                        <input class="form-control" id="lastname" type="text" placeholder="entrer le prenom" name="lastname"  formControlName="lastname" required>
+                        <div *ngIf="getformaddF['lastname'].touched && getformaddF['lastname'].invalid" class="text-danger">
+                          <div  *ngIf="getformaddF['lastname'].errors">champ prenom obligatoire</div>
+                        </div>
+                      </div>
+                      <!-- Form Group (lastname)-->
+                      <div class="mb-3">
+
+                        <label class="small mb-1" for="spec">Specialité<span style="color: #e74c3c">*</span></label>
+                        <input class="form-control" id="spec" type="text" placeholder="entrer la specialité" name="spec"  formControlName="spec" required>
+                        <div *ngIf="getformaddF['spec'].touched && getformaddF['spec'].invalid" class="text-danger">
+                          <div  *ngIf="getformaddF['spec'].errors">champ prenom obligatoire</div>
+                        </div>
+                      </div>
+                      <!-- Form Group (tel)-->
+                      <div class="mb-3">
+
+                        <label class="small mb-1" for="tel">Telephone<span style="color: #e74c3c">*</span></label>
+                        <input class="form-control" id="tel" type="text" placeholder="entrer le numero de telephone" name="tel" formControlName="tel" required>
+                        <div *ngIf="getformaddF['tel'].touched && getformaddF['tel'].invalid" class="text-danger">
+                          <div  *ngIf="getformaddF['tel'].errors">champ telephone obligatoire</div>
+                        </div>
+                      </div>
+
+
+                      <!-- Form Group (email)-->
+                      <div class="from-group">
+
+                        <label class="small mb-1" for="email">E-mail<span style="color: #e74c3c">*</span></label>
+                        <input class="form-control" id="email" type="email" placeholder="entrer l'adresse mail" name="email" formControlName="email" required>
+
+                        <div *ngIf="getformaddF['email'].touched && getformaddF['email'].invalid" class="text-danger">
+                          <div  *ngIf="getformaddF['email'].errors">champ email obligatoire</div>
+
+                        </div>
+                      </div>
+                      <div class="mb-3">
+
+                        <label class="small mb-1" for="logo">Photo</label>
+                        <input class="form-control"  (change)="onImageUpload($event)" id="logo"  type="file" accept="image/png, image/jpeg" placeholder="choissiser votre logo" name="logo"   >
+
+                      </div>
+                      <!-- Form Group (password)-->
+                      <div class="mb-3">
+
+                        <label class="small mb-1" for="Fpassword">Mot De Passe</label>
+                        <input class="form-control" id="Fpassword" type="password" placeholder="entrer le mot de passe" name="password" formControlName="password">
+                        <div *ngIf="getformaddF['password'].touched && getformaddF['password'].invalid" class="text-danger">
+                          <div  *ngIf="getformaddF['password'].errors">champ mot de passe obligatoire</div>
+                        </div>
+                      </div>
+                      <button class="btn btn-primary" type="submit" >Enregistrer</button>
+                    </form>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+        <!--end form-->
+
+      </ng-template>
+  <!----------------------------------------fin formulaire--------------------------------------->
+
+
+
+
+
+</div>

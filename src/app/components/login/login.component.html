@@ -1,0 +1,24 @@
+<div class="wrapper fadeInDown" style="margin-top: 100px" >
+
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img [src]="cheminImage" style="height: 150px" id="icon" alt="User Icon" />
+    </div>
+
+    <!-- Login Form -->
+    <form [formGroup]="loginForm">
+      <input type="text" id="login" class="fadeIn second" name="login" placeholder="email" formControlName="email">
+      <input type="password" id="password" class="fadeIn second" name="login" placeholder="mot de passe" formControlName="password" >
+
+      <button [disabled]="!loginForm.valid" type="button" class="btn btn-primary my-4" (click)="loginAdmin()">connexion</button>
+    </form>
+
+    <!-- Remind Passowrd -->
+    <div class="form">
+    </div>
+
+  </div>
+</div>

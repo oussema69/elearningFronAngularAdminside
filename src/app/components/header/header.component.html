@@ -1,0 +1,58 @@
+<header>
+    <h4>
+        <label>
+            <span class="fas fa-bars"></span>
+        </label>
+
+        Dashboard
+    </h4>
+
+    <div class="user-wrapper" (click)="open(mymodal)" >
+
+        <div>
+            <h6>{{admin.data.name}}
+            </h6>
+            <small>connecté <i class="fas fa-circle fa-xs text-success"></i></small>
+        </div>
+    </div>
+
+</header>
+<ng-template #mymodal let-modal >
+  <div class="modal-header" style="width: 500px !important;">
+    <h4 class="modal-title" id="modal-basic-title1">Changez Vos données</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <!--begin form-->
+  <div class="modal-body" style="width: 750px !important;" >
+    <div class="container">
+      <!-- Account page navigation-->
+      <div class="row">
+        <div class="col-lg-8" >
+          <!-- Change password card-->
+          <div class="card lg" >
+            <div class="card-body" >
+              <form  (ngSubmit)="updateAdmin()"  novalidate>
+                <div class="mb-3">
+                  <label class="small mb-4" for="name" >nom<span style="color: #e74c3c">*</span></label>
+                  <input class="form-control" id="name" type="text" placeholder="entrer le nom" name="name"  [(ngModel)]="admin.data.name" required>
+                </div>
+                <div class="mb-3">
+                  <label class="small mb-4" for="email" >email<span style="color: #e74c3c">*</span></label>
+                  <input class="form-control" id="email" type="text" placeholder="entrer le nom" name="email"  [(ngModel)]="admin.data.email" required>
+                </div>
+                <div class="mb-3">
+                  <label class="small mb-4" for="password" >password<span style="color: #e74c3c">*</span></label>
+                  <input class="form-control" id="password" type="text" placeholder="entrer le nom" name="password"  [(ngModel)]="admin.data.password" required>
+                </div>
+                <button class="btn btn-primary" type="submit" >Enregistrer</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--end form-->
+</ng-template>

@@ -1,0 +1,131 @@
+<i class="fa fa-backward fa-3x" aria-hidden="true" (click)="back()"></i>
+
+<h1 style="color:#4F75F7;text-align: center">{{format.name.toLocaleUpperCase()}}</h1>
+<!--------------------------------------formulaire chapitre---------------------------->
+<ng-template #mymodal let-modal >
+  <div class="modal-header" >
+    <h4 class="modal-title" id="modal-basic-title1">Ajouter Chapitre</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <!--begin form-->
+  <div class="modal-body" style="width: 750px !important;" >
+    <div class="container">
+      <!-- Account page navigation-->
+      <div class="row">
+        <div class="col-lg-8" >
+          <!-- Change password card-->
+          <div class="card lg" >
+            <div class="card-body" >
+              <form  (ngSubmit)="addCh()">
+                <div class="mb-3">
+                  <label class="small mb-4" for="nom" >nom<span style="color: #e74c3c">*</span></label>
+                  <input class="form-control" id="nom" type="text" placeholder="entrer le nom" [(ngModel)]="name" name="name"   required>
+                </div>
+                <div class="mb-3">
+
+                  <label class="small mb-1" for="desc">Description</label>
+                  <textarea class="form-control"[(ngModel)]="desc" name="desc" rows="5" cols="30" id="desc" minlength="10" maxlength="500" placeholder="entrer la description" ></textarea>
+
+                </div>
+                <div class="mb-3">
+                  <label class="small mb-4" for="form" >nom de la formation<span style="color: #e74c3c">*</span></label>
+                  <input class="form-control" id="form" type="text" [(ngModel)]="format.name" disabled="true" name="form"   required>
+                </div>
+                <button class="btn btn-primary" type="submit" >Enregistrer</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  <!--end form-->
+
+</ng-template>
+<!-----------------------------------fin formulaire ajouter cat---------------------------->
+<i class="fas fa-user-friends" style="color: #000000" aria-hidden="true" (click)="openListeApp(ListeApp)">Liste des Apprenants</i>
+
+
+<div >
+  <div class="example-container">
+    <div class="toptop">
+      <button type="button" style="width: 300px;" class=" swal2-input   " (click)="open(mymodal)" > <i class="fa fa-plus" aria-hidden="true" ></i>Creer</button>
+
+      <input type="text" name="Search" [(ngModel)] = "Search"  class="swal2-input"  style="width: 280px " placeholder="rechercher">
+    </div>
+    <div>
+      <div *ngIf="ch.length==0">
+        <img  src="../../../assets/nodata.png">
+        <h1 style="text-align:center">Aucun chapitre</h1>
+      </div>
+        <app-chapitr *ngFor="let i of ch|chapitre:Search;index as a" [chapitre]="i" [index]="a+1"
+        (delCHE)="delete(i)"
+        ></app-chapitr>
+    </div>
+
+  </div>
+
+
+
+</div>
+<!----------------------------------Ajouter apprenant--------------------------------------->
+<ng-template #ListeApp let-modal >
+  <div class="modal-header" >
+    <h4 class="modal-title" id="modal-basic-title2">Liste des apprenants</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body" style="width: 750px !important;">
+    <div class="container">
+      <!-- Account page navigation-->
+      <div class="input-group input-group-lg" style="width: 450px !important;">	<span class="input-group-text bg-transparent"><i class="fa fa-search"></i></span>
+        <input type="text" class="form-control"  placeholder="Rechercher" name="Search"[(ngModel)] = "Search"></div><br>
+      <div class="row">
+        <div class="col-lg-8" >
+
+          <div class="card lg" >
+            <div class="card-body" >
+              <h2 *ngIf="apprenant.length===0">Tous les apprenants ont été abonné</h2>
+
+              <div  *ngFor=" let app of apprenant|apprenants:Search ">
+
+
+              <mat-card class="example-card card shadow-none border radius-15"*ngIf="app.isValid">
+
+                <mat-card-title-group >
+
+                  <mat-card-title > <i class="fa fa-address-card" aria-hidden="true"></i> {{app.email}}</mat-card-title><br>
+
+              <i class="fa fa-trash"   aria-hidden="true" style="color: #0061f2" aria-hidden="true"  (click)="daffecter(app._id)" ></i>
+
+
+                </mat-card-title-group>
+
+
+
+              </mat-card>
+              </div>
+
+            </div>
+
+            </div>
+
+
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+
+</ng-template>

@@ -1,0 +1,66 @@
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
+
+<div class="sidebar-brand">
+    <div class="sidebar-brand-logo">
+        <span><img [src]="logo" alt="logo"></span>
+    </div>
+    <div class="sidebar-brand-name">
+        <h5>LMS</h5>
+        <small>First Step</small>
+    </div>
+</div>
+<div class="sidebar-title">
+    <small>Menu</small>
+</div>
+<div class="sidebar-menu">
+    <ul>
+        <li>
+            <a routerLink="dash" routerLinkActive="active">
+                <span class="fas fa-home" data-bs-toggle="tooltip" data-bs-placement="right" title="Dashboard"></span>
+                <span>Dashboard</span>
+            </a>
+        </li>
+
+        <li>
+            <a routerLink="app" routerLinkActive="active">
+                <span class="fas fa-graduation-cap" data-bs-toggle="tooltip" data-bs-placement="right" title="Apprenants">
+
+                </span><span>Apprenants</span>
+            </a>
+        </li>
+
+        <li>
+            <a routerLink="form" routerLinkActive="active">
+                <span class="fas fa-user" data-bs-toggle="tooltip" data-bs-placement="right" title="Formateurs"></span>
+                <span> Formateurs</span>
+            </a>
+        </li>
+
+        <li>
+            <a routerLink="formation" routerLinkActive="active">
+                <span class="fas fa-book" data-bs-toggle="tooltip" data-bs-placement="right"
+                    title="Formations"></span>
+                <span>Formations</span>
+            </a>
+        </li>
+
+        <li>
+            <a routerLink="planning" routerLinkActive="active">
+                <span class="fas fa-camera" data-bs-toggle="tooltip" data-bs-placement="right"
+                    title="Visiconférence"></span>
+                <span>Planning</span>
+            </a>
+        </li>
+
+
+    </ul>
+
+</div>
+
+<div class="sidebar-footer">
+    <button class="logout-btn" data-bs-toggle="tooltip" data-bs-placement="right" title="Logout" (click)="logout()" >
+        <i class="fas fa-sign-out-alt"></i> <div class="ms-1">Déconnexion</div>
+    </button>
+
+</div>

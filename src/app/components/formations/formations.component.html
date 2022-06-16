@@ -1,0 +1,113 @@
+<p>Nombre de categorie: {{categoris?.length}}</p>
+<ng-template #mymodal let-modal >
+  <div class="modal-header" style="width: 500px !important;">
+    <h4 class="modal-title" id="modal-basic-title1">Ajouter Categorie</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <!--begin form-->
+  <div class="modal-body" style="width: 750px !important;" >
+    <div class="container">
+      <!-- Account page navigation-->
+      <div class="row">
+        <div class="col-lg-8" >
+          <!-- Change password card-->
+          <div class="card lg" >
+            <div class="card-body" >
+              <form [formGroup]="addC" (ngSubmit)="onSubmit()"  novalidate>
+                <div class="mb-3">
+                  <label class="small mb-4" for="lastname" >nom<span style="color: #e74c3c">*</span></label>
+                  <input class="form-control" id="lastname" type="text" placeholder="entrer le nom" name="name"  formControlName="name" required>
+                </div>
+                <div class="mb-3">
+
+                  <label class="small mb-1" for="logo">logo</label>
+                  <input class="form-control"  (change)="onImageUpload($event)" id="logo"  type="file" accept="image/png, image/jpeg" placeholder="choissiser votre logo" name="logo"   >
+
+                </div>
+
+                <button class="btn btn-primary" type="submit" >Enregistrer</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--end form-->
+</ng-template>
+<!-----------------------------------fin formulaire ajouter cat---------------------------->
+<div class="row mb-3 host">
+  <div class="toptop">
+    <button type="button" style="width: 300px;" class=" swal2-input   " (click)="open(mymodal)" > <i class="fa fa-plus" aria-hidden="true" ></i>Creer</button>
+    <input type="text" name="Search" [(ngModel)] = "Search" class="swal2-input"  style="width: 280px " placeholder="rechercher">
+  </div>
+
+  <div class="row host" >
+    <div class="row host">
+      <div *ngIf="categoris?.length==0">
+        <img  src="../../../assets/nodata.png">
+        <h1 style="text-align:center">Aucun categorie</h1>
+      </div>
+    <div class="col-lg-4 "  *ngFor="let item of categoris|categorie:Search" (dblclick)="go(item._id)"  >
+      <div class="block mb-2">
+        <div class="card-body">
+          <div class="row" >
+            <div>
+              <i class="fa fa-pencil-square " style="position:relative;left:-4%;top: -10%; " (click)="open(mymodal1)" ></i>
+              <i class="fa fa-close " style="position:relative;left:96%;top: -10%; " (click)="del(item._id)"></i>
+            <img src="{{fileUrl+item.logo}}" style="width:100%;height: 150px"class="header-image">
+
+          </div>
+            <div class="d-flex " >
+              <h5 style="   position: relative;left: 28%">
+                 {{item.name}}
+              </h5>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!------------------------------------------------editer-------------------------------------------->
+      <ng-template #mymodal1 let-modal >
+        <div class="modal-header" style="width: 500px !important;">
+          <h4 class="modal-title" id="modal-basic-title">Editer Categorie</h4>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <!--begin form-->
+        <div class="modal-body" style="width: 750px !important;" >
+          <div class="container">
+            <!-- Account page navigation-->
+            <div class="row">
+              <div class="col-lg-8" >
+                <!-- Change password card-->
+                <div class="card lg" >
+                  <div class="card-body" >
+                    <form (ngSubmit)="updateCat(item._id)"  novalidate>
+                      <div class="mb-3">
+                        <label class="small mb-4" for="name" >nom</label>
+                        <input class="form-control" id="name" type="text"  name="name" [(ngModel)]="nomup" placeholder="taper le nouveau nom"  required>
+                      </div>
+                      <div class="mb-3">
+
+                        <label class="small mb-1" for="logoup">logo</label>
+                        <input class="form-control"  (change)="onImageUpload($event)" id="logoup"  type="file" accept="image/png, image/jpeg" placeholder="choissiser votre logo" name="logo"   >
+
+                      </div>
+
+                      <button class="btn btn-primary" type="submit" >Enregistrer</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--end form-->
+      </ng-template>
+
+    </div>
+  </div>
+  </div>

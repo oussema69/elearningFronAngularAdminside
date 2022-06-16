@@ -1,0 +1,248 @@
+
+<i class="fa fa-backward fa-3x" aria-hidden="true" (click)="back()"></i>
+<h1 style="color:#4F75F7;text-align: center">{{categoriId.name}}</h1>
+<p>nombre de formation: {{formation?.length}}</p>
+<!------------------------------------formulaire ajout formation---------------------------------------->
+<ng-template #mymodal let-modal >
+  <div class="modal-header" >
+    <h4 class="modal-title" id="modal-basic-title">Ajouter Formation</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <!--begin form-->
+  <form>
+    <!--begin form-->
+    <div class="modal-body" style="width: 750px !important;">
+      <div class="container">
+        <!-- Account page navigation-->
+        <div class="row">
+          <div class="col-lg-8" >
+            <!-- Change password card-->
+            <div class="card lg" >
+              <div class="card-body" >
+                <!--------------------->
+                <form  (ngSubmit)="addForm()">
+                  <!-- Form Group (name)-->
+                  <div class="mb-3">
+
+                    <label class="small mb-1" for="name">
+                      Nom<span style="color: #e74c3c">*</span></label>
+                    <input class="form-control" id="name" [(ngModel)]="nom"   type="text" placeholder="Entrer le nom" name="nameF"   required>
+
+                  </div>
+                  <!-- Form Group (cat)-->
+                  <div class="mb-3">
+
+                    <label class="small mb-1" for="j">Categorie<span style="color: #e74c3c">*</span></label>
+                    <input class="form-control" id="j" type="text"  [(ngModel)]="categoriId.name" disabled="true" name="categori"    required>
+
+                  </div>
+                  <!-- Form Group (nrbH)-->
+                  <div class="mb-3">
+
+                    <label class="small mb-1" for="nbrH">nombre d'heure<span style="color: #e74c3c">*</span></label>
+                    <input class="form-control" id="nbrH"   [(ngModel)]="nbrH"type="Number" placeholder="entrer le nombre d'heure" name="nbrH"   required>
+
+                  </div>
+
+
+                  <!-- Form Group (datefin)-->
+
+                  <!-- Form Group (logo)-->
+                  <div class="mb-3">
+
+                    <label class="small mb-1" for="logo">logo</label>
+                    <input class="form-control"  (change)="onImageUpload($event)" id="logo"  type="file" accept="image/png, image/jpeg" placeholder="choissiser votre logo" name="logo"   >
+
+                  </div>
+                  <div class="mb-3">
+
+                    <label class="small mb-1" for="desc">Description</label>
+                    <textarea class="form-control"[(ngModel)]="desc" name="desc" rows="5" cols="30" id="desc" minlength="10" maxlength="500" placeholder="entrer la description" ></textarea>
+
+                  </div>
+
+                  <button class="btn btn-primary" type="submit" >Enregistrer</button>
+                </form>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </form>
+  <!--end form-->
+
+</ng-template>
+<!---------------------------------fin formulaire ajout formation--------------------------------------->
+<div class="row mb-3 host">
+  <div class="toptop">
+    <button type="button" style="width: 300px;" class=" swal2-input   " (click)="open(mymodal)" > <i class="fa fa-plus" aria-hidden="true" ></i>Creer</button>
+    <input type="text" name="Search" [(ngModel)] = "Search" class="swal2-input"  style="width: 280px " placeholder="rechercher">
+  </div>
+  <div class="row host">
+    <div *ngIf="formation.length==0">
+      <img  src="../../../assets/nodata.png">
+      <h1 style="text-align:center">Aucun formation</h1>
+    </div>
+    <div class="col-lg-4"  *ngFor="let item of formation|formation:Search" (dblclick)="goToChap(item._id)" title="{{item.desc}}" style="width: 33%">
+      <div class="block mb-2">
+        <div class="card-body">
+          <div class="row" >
+            <div>
+              <i class="fa fa-pencil-square " style="position:relative;left:-4%;top: -10%; " (click)="open(editer)" ></i>
+
+              <i class="fa fa-close " style="position:relative;left:96%;top: -10%; " (click)="supprimer(item._id)"></i>
+              <img src="{{fileUrl+item.urlimg}}" style="width:100%;height: 150px"class="header-image">
+
+            </div>
+            <div class="d-flex text-muted mb-3 lh-1 d-block text-truncate " >
+              <h5 style="color: #0061f2">
+                <b>{{item.name}}</b>
+              </h5>
+
+            </div>
+            <div class="d-flex " >
+              <h5>
+                Depot: {{item.dateDepot| date: 'dd/MM/yyyy'}}
+              </h5>
+
+            </div>
+            <div class="d-flex " >
+              <h5>
+                 Fin : {{item.dateDepot| date: 'dd/MM/yyyy'}}
+              </h5>
+
+            </div>
+            <div class="d-flex " >
+              <h5>
+                Nombre Heure : {{item.nbrH}}h
+              </h5>
+
+            </div>
+            <div class="d-flex " >
+              <h5>
+                <i class="fa fa-users"  style="color: #0061f2" aria-hidden="true" (click)="openAffecter(ajouterApp,item._id)"></i>
+              </h5>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!------------------------------------formulaire update formation---------------------------------------->
+      <ng-template #editer let-modal >
+        <div class="modal-header" >
+          <h4 class="modal-title" id="modal-basic-title2">Editer Formation</h4>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <!--begin form-->
+        <form>
+          <!--begin form-->
+          <div class="modal-body" style="width: 750px !important;">
+            <div class="container">
+              <!-- Account page navigation-->
+              <div class="row">
+                <div class="col-lg-8" >
+                  <!-- Change password card-->
+                  <div class="card lg" >
+                    <div class="card-body" >
+                      <!--------------------->
+                      <form  (ngSubmit)="updateF(item._id)" >
+                        <!-- Form Group (name)-->
+                        <div class="mb-3">
+
+                          <label class="small mb-1" for="nameup">
+                            Nom<span style="color: #e74c3c">*</span></label>
+                          <input class="form-control" id="nameup" [(ngModel)]="nomup"   type="text" placeholder="Entrer le nom" name="nameup"   required>
+
+                        </div>
+                        <!-- Form Group (cat)-->
+
+                        <!-- Form Group (nrbH)-->
+                        <div class="mb-3">
+
+                          <label class="small mb-1" for="nbrHup">nombre d'heure<span style="color: #e74c3c">*</span></label>
+                          <input class="form-control" id="nbrHup"   [(ngModel)]="nbrHup"type="Number" placeholder="entrer le nombre d'heure" name="nbrH"   required>
+
+                        </div>
+
+
+
+                        <!-- Form Group (logo)-->
+                        <div class="mb-3">
+
+                          <label class="small mb-1" for="logo">logo</label>
+                          <input class="form-control"  (change)="onImageUpload($event)" id="logoup"  type="file" accept="image/png, image/jpeg" placeholder="choissiser votre logo" name="logo"   >
+
+                        </div>
+                        <div class="mb-3">
+
+                          <label class="small mb-1" for="descup">Description</label>
+                          <textarea class="form-control"[(ngModel)]="descup" name="desc" rows="5" cols="30" id="descup" minlength="10" maxlength="500" placeholder="entrer la description" ></textarea>
+
+                        </div>
+
+                        <button class="btn btn-primary" type="submit" >Enregistrer</button>
+                      </form>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+        </form>
+        <!--end form-->
+
+      </ng-template>
+
+    </div>
+  </div>
+</div>
+ <!----------------------------------Ajouter apprenant--------------------------------------->
+ <ng-template #ajouterApp let-modal >
+  <div class="modal-header" >
+    <h4 class="modal-title" id="modal-basic-title1">Liste des apprenants</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body" style="width: 750px !important;">
+    <div class="container">
+      <!-- Account page navigation-->
+      <div class="input-group input-group-lg" style="width: 450px !important;">	<span class="input-group-text bg-transparent"><i class="fa fa-search"></i></span>
+        <input type="text" class="form-control" placeholder="Rechercher" name="Search" [(ngModel)]="SearchApp"></div><br>
+      <div class="row">
+        <div class="col-lg-8" >
+
+          <div class="card lg" >
+            <div class="card-body" >
+              <h2 *ngIf="apprenant.length===0">Tous les apprenants ont été abonné</h2>
+
+              <app-affect-app  *ngFor=" let app of apprenant|apprenants:SearchApp" [app]="app" (affect)="affecter(app._id)" >
+
+
+
+              </app-affect-app>
+
+            </div>
+            </div>
+
+
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+</ng-template>

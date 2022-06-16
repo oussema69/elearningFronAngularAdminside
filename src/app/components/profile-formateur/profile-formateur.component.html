@@ -1,0 +1,137 @@
+
+<i class="fa fa-backward fa-3x" aria-hidden="true" (click)="back()"></i>
+<div class="container">
+  <div class="main-body">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="back">
+          <div class="card-body">
+            <div class="d-flex flex-column align-items-center text-center">
+              <div class="mt-3">
+                <img src="{{fileUrl+formateur.logo}}" width="70%"/>
+
+                <h4>{{formateur.name}} {{formateur.lastname}}</h4>
+
+                <p class="text-secondary mb-1"> {{formateur.email}}</p>
+                <p class="text-muted font-size-sm">{{formateur.tel}}</p>
+                <p class="text-muted font-size-sm">{{formateur.spec}}</p>
+                <p class="text-muted font-size-sm">nombre totale de visioconference: {{nbrtot}}</p>
+                <p class="text-muted font-size-sm">nombre d'heure de visioconference: {{nbrh}}h</p>
+                <button class="btn btn-outline-primary">Message</button>
+              </div>
+
+            </div>
+            <hr class="my-4">
+
+          </div>
+
+        </div>
+      </div>
+
+      <div class="col-lg-8">
+        <div class="back">
+          <div class="card-body">
+            <form  (ngSubmit)="updateFormateur()" novalidate>
+              <div class="row mb-3">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">nom</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <input type="text"  class="form-control" name="name"[(ngModel)]="formateur.name">
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">prenom</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <input type="text"  class="form-control" name="lastname" [(ngModel)]="formateur.lastname">
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">telephone</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <input type="text" class="form-control" name="tel"[(ngModel)]="formateur.tel">
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">specialité</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <input type="text" class="form-control" name="spec"[(ngModel)]="formateur.spec">
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">E-mail</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <input type="text" class="form-control" name="email"[(ngModel)]="formateur.email">
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">mot de passe</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <input type="text"  class="form-control" name="pasword"[(ngModel)]="formateur.password">
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">validité</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <input type="checkbox" class=""  name="isValid"[(ngModel)]="formateur.isValid">
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-9 text-secondary">
+                  <input type="submit" class="btn btn-primary px-4" value="Save Changes">
+
+                </div>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  nombre de visioConference
+
+  <form>
+    <div class="row">
+      <div class="col">
+        <input type="date" name="db" [(ngModel)]="db" class="form-control" placeholder="Date debut">
+      </div>
+      <div class="col">
+        <input type="date" class="form-control" name="db" [(ngModel)]="df" placeholder="date fin">
+      </div>
+      <div class="col">
+        <button type="button" class="btn btn-primary" (click)="get()">compter</button>
+      </div>
+
+      <div class="col">
+        <input type="text" class="form-control" [(ngModel)]="nbr" name="nbr" disabled>
+      </div>
+    </div>
+  </form>
+  <hr>
+
+  <app-visioformateur  [idf]="formateur._id"></app-visioformateur>
+
+</div>
+
+
+<app-calendar></app-calendar>
+
+
+

@@ -1,0 +1,12 @@
+.res{
+  background-color: #5f5f5f;
+  margin: 10px;
+}
+
+.list{
+  border:1px solid slategrey;
+  border-radius: 2px;
+  padding: 10px;
+  margin-right: 5%;
+  background-color:  #EFEFEF;
+}
